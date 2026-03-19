@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion as Motion } from 'motion/react';
 import { 
   ArrowRight, 
@@ -23,7 +23,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router';
 import { ImageWithFallback } from './components/figma/ImageWithFallback';
-import aiEthicsScales from "figma:asset/cbd34c5234cbfe872a1d50b1d447caa53b24f026.png";
+import aiEthicsScales from "figma:asset/ai_ethics_scale_dark.png";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -32,6 +32,8 @@ const fadeInUp = {
 };
 
 export default function Home() {
+  const [showDiagnosisModal, setShowDiagnosisModal] = useState(false);
+
   return (
     <div className="flex flex-col bg-[#FDFCF8] text-slate-800">
       {/* Hero Section: Ethical Balance & Trust */}
@@ -60,12 +62,13 @@ export default function Home() {
                   — TRUST IS THE NEW ALGORITHM
                 </div>
 
-                <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[1.05] mb-8 text-slate-900">
+                <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[1.05] mb-8 text-slate-900 break-keep min-w-max">
                   AI의 미래는 <br />
                   <span className="text-[#0D4C54] relative inline-block">
-                    기술이 아니라 윤리
+                    기술이 아니라
                     <span className="absolute bottom-2 left-0 w-full h-3 bg-[#0D4C54]/10 -z-10 rounded-full" />
-                  </span>로 <br />
+                  </span> <br />
+                  윤리로 <br />
                   결정됩니다.
                 </h1>
 
@@ -96,15 +99,15 @@ export default function Home() {
                 </p>
                 
                 <div className="flex flex-wrap gap-6">
-                  <Link
-                    to="/services"
+                  <button
+                    onClick={() => setShowDiagnosisModal(true)}
                     className="group relative px-12 py-6 bg-[#0D4C54] text-white rounded-[24px] font-black text-xl overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-2xl shadow-teal-900/30"
                   >
                     <span className="relative flex items-center gap-3">
                       무료 윤리 진단 시작하기
                       <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
                     </span>
-                  </Link>
+                  </button>
                   <Link
                     to="/about"
                     className="px-12 py-6 bg-white border-2 border-slate-200 text-slate-800 rounded-[24px] font-black text-xl hover:bg-slate-50 transition-all shadow-sm"
@@ -391,6 +394,53 @@ export default function Home() {
           </div>
         </div>
       </section>
+      {showDiagnosisModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm shadow-6xl">
+          <Motion.div 
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            className="bg-white rounded-[40px] p-8 md:p-14 w-full max-w-5xl relative overflow-y-auto max-h-[95vh] shadow-2xl"
+          >
+            <button 
+              onClick={() => setShowDiagnosisModal(false)}
+              className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center bg-slate-100 text-slate-600 rounded-full hover:bg-slate-200 transition-colors z-20"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            
+            <div className="text-center mb-12 relative z-10">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-[#0D4C54]/10 text-[#0D4C54] rounded-2xl mb-6">
+                 <Scale className="w-8 h-8" />
+              </div>
+              <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight">어떤 진단이 필요하신가요?</h2>
+              <p className="text-xl text-slate-500 font-medium max-w-2xl mx-auto leading-relaxed">조직의 특성과 진단 목적에 맞춰<br/>가장 효율적인 AI 윤리 진단을 선택해주세요.</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
+              {[
+                { title: 'Check 점수표', desc: '서비스 기획 단계에서의 직관적이고 빠른 윤리 자가 점검', icon: FileText, color: 'text-indigo-600', bg: 'bg-indigo-50' },
+                { title: 'AI평가', desc: '알고리즘의 편향성 데이터 관리 등 상세 기술 리스크 분석', icon: Search, color: 'text-emerald-600', bg: 'bg-emerald-50' },
+                { title: '직원용', desc: '일반 실무자 대상의 AI 활용 가이드라인 준수 여부 점검', icon: Users, color: 'text-blue-600', bg: 'bg-blue-50' },
+                { title: '학생용', desc: '교육 현장에서의 건전한 정보 수용과 AI 툴 안전 교육 진단', icon: Award, color: 'text-amber-600', bg: 'bg-amber-50' },
+                { title: '임원용', desc: '조직 전반의 거버넌스, 정책 수립 및 규제 대응 역량 진단', icon: ShieldCheck, color: 'text-[#0D4C54]', bg: 'bg-[#0D4C54]/10' }
+              ].map((item, idx) => (
+                <Link 
+                  key={idx} 
+                  to="/services" 
+                  onClick={() => setShowDiagnosisModal(false)}
+                  className="flex flex-col items-start p-8 rounded-[32px] border-2 border-slate-100 hover:border-slate-300 hover:shadow-2xl hover:-translate-y-2 transition-all group bg-white cursor-pointer"
+                >
+                  <div className={`w-16 h-16 ${item.bg} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-sm`}>
+                    <item.icon className={`w-8 h-8 ${item.color}`} />
+                  </div>
+                  <h3 className="text-2xl font-black text-slate-800 mb-3 tracking-tight group-hover:text-slate-950">{item.title}</h3>
+                  <p className="text-slate-500 font-medium leading-relaxed">{item.desc}</p>
+                </Link>
+              ))}
+            </div>
+          </Motion.div>
+        </div>
+      )}
     </div>
   );
 }
