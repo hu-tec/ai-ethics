@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion as Motion } from 'motion/react';
 import { Users, BookOpen, Briefcase, Star, Mail, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { toast } from 'sonner';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 export default function Join() {
+  const [submitting, setSubmitting] = useState(false);
+
   const roles = [
     { title: "AI 윤리 자문위원", icon: Star, desc: "정부 및 기업의 AI 정책 수립에 참여하여 전문가적 견해를 제공합니다." },
     { title: "인증 평가 전문가", icon: CheckCircle2, desc: "AI 시스템의 윤리 적합성을 평가하고 인증 심사를 수행합니다." },
@@ -11,9 +15,30 @@ export default function Join() {
     { title: "연구 및 집필", icon: Briefcase, desc: "글로벌 트렌드 분석 보고서 및 윤리 가이드라인 집필에 참여합니다." },
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast.success('전문가 신청이 접수되었습니다. 담당자가 곧 연락드리겠습니다.');
+    setSubmitting(true);
+    const form = e.currentTarget;
+    const data = {
+      name: (form.elements.namedItem('name') as HTMLInputElement).value,
+      email: (form.elements.namedItem('email') as HTMLInputElement).value,
+      field: (form.elements.namedItem('field') as HTMLSelectElement).value,
+      bio: (form.elements.namedItem('bio') as HTMLTextAreaElement).value,
+    };
+    try {
+      const res = await fetch(`${API_URL}/api/aiethics_applications`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error('서버 오류');
+      toast.success('전문가 신청이 접수되었습니다. 담당자가 곧 연락드리겠습니다.');
+      form.reset();
+    } catch {
+      toast.error('신청 접수에 실패했습니다. 잠시 후 다시 시도해주세요.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -72,16 +97,16 @@ export default function Join() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-slate-700">성함</label>
-                    <input type="text" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="홍길동" required />
+                    <input name="name" type="text" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="홍길동" required />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-slate-700">이메일</label>
-                    <input type="email" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="example@email.com" required />
+                    <input name="email" type="email" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="example@email.com" required />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-slate-700">주요 전문 분야</label>
-                  <select className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                  <select name="field" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                     <option value="">분야를 선택해주세요</option>
                     <option value="tech">AI 기술 / 개발</option>
                     <option value="law">법률 / 규제</option>
@@ -92,11 +117,11 @@ export default function Join() {
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-slate-700">경력 요약 및 자기소개</label>
-                  <textarea className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 h-32" placeholder="자유롭게 기술해주세요" required></textarea>
+                  <textarea name="bio" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 h-32" placeholder="자유롭게 기술해주세요" required></textarea>
                 </div>
-                <button type="submit" className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-200">
-                  지원서 제출하기
-                  <ArrowRight className="w-5 h-5" />
+                <button type="submit" disabled={submitting} className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-200 disabled:opacity-50">
+                  {submitting ? '접수 중...' : '지원서 제출하기'}
+                  {!submitting && <ArrowRight className="w-5 h-5" />}
                 </button>
               </form>
             </div>
