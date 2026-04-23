@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router';
-import { Menu, X, Shield, Globe, BookOpen, Briefcase, Activity, Users, MessageSquare } from 'lucide-react';
+import { Menu, X, Shield, Globe, BookOpen, Briefcase, Activity, Users, MessageSquare, Building2 } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -22,6 +22,7 @@ export const Navbar = () => {
   }, []);
 
   const navItems = [
+    { name: '그룹소개', path: 'https://hutechc.com/', icon: Building2, isExternal: true },
     { name: 'AI 윤리 소개', path: '/about', icon: BookOpen },
     { name: '적용 분야', path: '/fields', icon: Globe },
     { name: '업무 프로세스', path: '/services', icon: Briefcase },
@@ -48,16 +49,28 @@ export const Navbar = () => {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
           {navItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={cn(
-                'text-sm font-bold transition-all hover:text-[#0D4C54] uppercase tracking-widest',
-                location.pathname === item.path ? 'text-[#0D4C54] border-b-2 border-[#0D4C54]' : 'text-slate-500'
-              )}
-            >
-              {item.name}
-            </Link>
+            item.isExternal ? (
+              <a
+                key={item.path}
+                href={item.path}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-bold transition-all hover:text-[#0D4C54] uppercase tracking-widest text-slate-500"
+              >
+                {item.name}
+              </a>
+            ) : (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={cn(
+                  'text-sm font-bold transition-all hover:text-[#0D4C54] uppercase tracking-widest',
+                  location.pathname === item.path ? 'text-[#0D4C54] border-b-2 border-[#0D4C54]' : 'text-slate-500'
+                )}
+              >
+                {item.name}
+              </Link>
+            )
           ))}
           <Link
             to="/contact"
@@ -85,18 +98,32 @@ export const Navbar = () => {
       >
         <div className="flex flex-col p-4 space-y-4">
           {navItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={cn(
-                'flex items-center gap-3 p-3 rounded-lg text-base transition-colors',
-                location.pathname === item.path ? 'bg-blue-50 text-blue-600 font-semibold' : 'text-slate-600 hover:bg-slate-50'
-              )}
-              onClick={() => setIsOpen(false)}
-            >
-              <item.icon className="w-5 h-5" />
-              {item.name}
-            </Link>
+            item.isExternal ? (
+              <a
+                key={item.path}
+                href={item.path}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-3 rounded-lg text-base transition-colors text-slate-600 hover:bg-slate-50"
+                onClick={() => setIsOpen(false)}
+              >
+                <item.icon className="w-5 h-5" />
+                {item.name}
+              </a>
+            ) : (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={cn(
+                  'flex items-center gap-3 p-3 rounded-lg text-base transition-colors',
+                  location.pathname === item.path ? 'bg-blue-50 text-blue-600 font-semibold' : 'text-slate-600 hover:bg-slate-50'
+                )}
+                onClick={() => setIsOpen(false)}
+              >
+                <item.icon className="w-5 h-5" />
+                {item.name}
+              </Link>
+            )
           ))}
           <Link
             to="/contact"
