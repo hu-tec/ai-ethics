@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion as Motion, AnimatePresence } from 'motion/react';
 import { clsx } from 'clsx';
 
-type TabType = 'industry' | 'content';
+type TabType = 'industry' | 'professional' | 'functional' | 'content';
 
 interface FieldItem {
   title: string;
@@ -43,6 +43,32 @@ export default function Fields() {
         tags: ["교육", "컨설팅", "보고서"]
       },
       {
+        title: "AI 자율주행윤리",
+        desc: "긴급 상황에서의 인명 보호 우선순위 결정 및 사고 책임 소재 파악",
+        issues: "사고책임 / 의사결정윤리 / 안전확보",
+        detailLabel: "적용 장면",
+        detailContent: "자율주행 알고리즘 설계 가이드, 안전 기준 수립",
+        tags: ["교육", "컨설팅", "보고서"]
+      },
+      {
+        title: "AI 금융윤리",
+        desc: "신용평가 및 대출 심사의 공정성 확보와 알고리즘 편향 방지",
+        issues: "알고리즘편향 / 자동화책임 / 데이터남용",
+        detailLabel: "적용 장면",
+        detailContent: "금융 AI 거버넌스 수립, 공정성 진단 보고서",
+        tags: ["교육", "인증", "보고서"]
+      },
+      {
+        title: "AI 공공행정윤리",
+        desc: "공공 서비스 자동화에 따른 인권 보호와 공공성 확보 기준",
+        issues: "시민감시 / 인권침해 / 투명성",
+        detailLabel: "적용 장면",
+        detailContent: "공공기관 AI 가이드라인, 인권 영향 평가",
+        tags: ["교육", "컨설팅", "보고서"]
+      },
+    ],
+    professional: [
+      {
         title: "AI 의료윤리",
         desc: "건강과 보건, 민감정보와 설명 책임을 다루는 AI 윤리 기준",
         issues: "정확성 / 민감정보 / 오해방지",
@@ -75,15 +101,23 @@ export default function Fields() {
         tags: ["교육", "컨설팅", "보고서"]
       },
       {
-        title: "AI 과학윤리",
-        desc: "과학 개념을 학생 눈높이에 맞게 정확하고 안전하게 설명하기 위한 기준",
-        issues: "과학정확성 / 탐구설계 / 학생안전",
+        title: "AI 보안윤리",
+        desc: "사이버 보안 강화와 동시에 발생할 수 있는 프라이버시 침해 방지",
+        issues: "프라이버시 / 감시체계 / 데이터권리",
         detailLabel: "적용 장면",
-        detailContent: "방과후 과학수업, 진로교육, 캠프",
-        tags: ["교육", "시험", "보고서"]
+        detailContent: "보안 시스템 운영 지침, 개인정보 영향 평가",
+        tags: ["교육", "컨설팅", "보고서"]
+      },
+      {
+        title: "AI 기술윤리",
+        desc: "범용 인공지능(AGI)의 발전 방향과 인류 가치 정렬을 위한 기준",
+        issues: "기술독점 / 통제불가능성 / 가치정렬",
+        detailLabel: "적용 장면",
+        detailContent: "R&D 윤리 헌장 제정, 개발자 가이드라인",
+        tags: ["교육", "보고서", "시험"]
       },
     ],
-    content: [
+    functional: [
       {
         title: "AI 문서윤리",
         desc: "문서, 보고서, 기획서, 안내문 작성 과정에서 필요한 신뢰와 출처의 기준",
@@ -125,6 +159,16 @@ export default function Fields() {
         tags: ["교육", "컨설팅", "보고서"]
       },
       {
+        title: "AI툴 윤리",
+        desc: "다양한 AI 도구 활용 시의 도덕적 책임과 오남용 방지를 위한 가이드",
+        issues: "도구남용 / 책임소재 / 결과편향",
+        detailLabel: "대표 문제",
+        detailContent: "비전문적 AI 활용, 편향된 결과물 무단 배포",
+        tags: ["교육", "인증"]
+      },
+    ],
+    content: [
+      {
         title: "AI 교육콘텐츠윤리",
         desc: "학생 대상 자료와 교안, 활동지 제작에 필요한 안전성과 설명 책임의 기준",
         issues: "아동대상안전 / 저작권 / 설명책임",
@@ -132,12 +176,54 @@ export default function Fields() {
         detailContent: "부정확한 자료, 학부모 신뢰 저하, 교육현장 오남용",
         tags: ["교육", "시험", "인증"]
       },
+      {
+        title: "AI 광고윤리",
+        desc: "알고리즘 기반 타겟팅 광고의 공정성과 소비자 기만 방지",
+        issues: "소비자오인 / 다크패턴 / 데이터수집",
+        detailLabel: "대표 문제",
+        detailContent: "과장 광고, 사용자 취약성 이용 마케팅",
+        tags: ["교육", "컨설팅", "보고서"]
+      },
+      {
+        title: "AI 웹툰/드라마/영화윤리",
+        desc: "창작 과정에서의 AI 활용 범위와 아티스트의 권리 보호",
+        issues: "스타일도용 / 배역권리 / 창작노동",
+        detailLabel: "대표 문제",
+        detailContent: "배우 초상권 무단 활용, 작가 고유 스타일 학습",
+        tags: ["교육", "보고서"]
+      },
+      {
+        title: "AI K-문화윤리",
+        desc: "한국적 가치와 문화유산의 올바른 표현 및 글로벌 확산을 위한 기준",
+        issues: "문화왜곡 / 정체성 / 글로벌기준",
+        detailLabel: "대표 문제",
+        detailContent: "한국 문화의 잘못된 학습 및 표현 배포",
+        tags: ["교육", "컨설팅"]
+      },
+      {
+        title: "AI 저작권/초상권윤리",
+        desc: "AI 학습 데이터와 결과물의 저작권 귀속 및 권리 보호 체계",
+        issues: "데이터학습 / 권리귀속 / 무단사용",
+        detailLabel: "대표 문제",
+        detailContent: "저작물 무단 크롤링, AI 생성물 저작권 분쟁",
+        tags: ["교육", "인증", "보고서"]
+      },
+      {
+        title: "AI 미술/음악윤리",
+        desc: "순수 예술 분야에서의 AI 창작 활동과 인간 창의성의 조화",
+        issues: "창의성논란 / 가치평가 / 예술윤리",
+        detailLabel: "대표 문제",
+        detailContent: "AI 생성 예술의 공모전 출품 논란 등",
+        tags: ["교육", "보고서"]
+      },
     ]
   };
 
   const tabs = [
-    { id: 'industry', label: '산업별 AI 윤리' },
-    { id: 'content', label: '콘텐츠별 AI 윤리' },
+    { id: 'industry', label: '산업별' },
+    { id: 'professional', label: '전문별' },
+    { id: 'functional', label: '기능별' },
+    { id: 'content', label: '컨텐츠별' },
   ];
 
   return (
@@ -159,24 +245,18 @@ export default function Fields() {
       <section className="py-16">
         <div className="container mx-auto px-4 md:px-6">
           {/* Tab Navigation */}
-          <div className="flex justify-center mb-16 border-b border-slate-200">
-            <div className="flex gap-12">
+          <div className="flex justify-center mb-16">
+            <div className="inline-flex bg-slate-100 p-1.5 rounded-full border border-slate-200 shadow-inner">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as TabType)}
                   className={clsx(
-                    "pb-4 text-xl font-bold transition-all relative",
-                    activeTab === tab.id ? "text-[#8B1D3B]" : "text-slate-400 hover:text-slate-600"
+                    "px-6 md:px-10 py-3 rounded-full text-base md:text-lg font-bold transition-all whitespace-nowrap",
+                    activeTab === tab.id ? "bg-white text-[#8B1D3B] shadow-sm" : "text-slate-500 hover:text-slate-800"
                   )}
                 >
                   {tab.label}
-                  {activeTab === tab.id && (
-                    <Motion.div
-                      layoutId="activeTab"
-                      className="absolute bottom-0 left-0 right-0 h-1 bg-[#8B1D3B]"
-                    />
-                  )}
                 </button>
               ))}
             </div>
@@ -185,24 +265,21 @@ export default function Fields() {
           <AnimatePresence mode="wait">
             <Motion.div
               key={activeTab}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className={clsx(
-                "grid gap-6 md:gap-8",
-                activeTab === 'industry' ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-4" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-              )}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto"
             >
               {fieldData[activeTab].map((item, idx) => (
                 <Motion.div
                   key={item.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: idx * 0.05 }}
-                  className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm flex flex-col hover:shadow-md transition-shadow"
+                  className="bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-sm flex flex-col hover:shadow-xl hover:border-blue-200 transition-all duration-300"
                 >
-                  <h3 className="text-2xl font-bold text-[#8B1D3B] mb-4">{item.title}</h3>
+                  <h3 className="text-2xl font-black text-[#8B1D3B] mb-4">{item.title}</h3>
                   <p className="text-slate-700 text-sm leading-relaxed mb-6 h-12 line-clamp-2">
                     {item.desc}
                   </p>
@@ -211,18 +288,18 @@ export default function Fields() {
 
                   <div className="space-y-6 flex-grow">
                     <div>
-                      <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">핵심 이슈</h4>
+                      <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">핵심 이슈</h4>
                       <p className="text-slate-900 text-sm font-bold">{item.issues}</p>
                     </div>
                     <div>
-                      <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">{item.detailLabel}</h4>
+                      <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">{item.detailLabel}</h4>
                       <p className="text-slate-800 text-sm leading-relaxed">{item.detailContent}</p>
                     </div>
                   </div>
 
                   <div className="mt-8 pt-6 border-t border-slate-50 flex flex-wrap gap-2">
                     {item.tags.map((tag) => (
-                      <span key={tag} className="text-[#8B1D3B] text-xs font-bold bg-[#8B1D3B]/5 px-3 py-1 rounded-full border border-[#8B1D3B]/10">
+                      <span key={tag} className="text-[#8B1D3B] text-[10px] font-black bg-[#8B1D3B]/5 px-3 py-1 rounded-full border border-[#8B1D3B]/10 tracking-tight">
                         {tag}
                       </span>
                     ))}
