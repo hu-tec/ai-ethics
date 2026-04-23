@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createHashRouter } from "react-router";
 import Root from "./Root";
 import Home from "./Home";
 import About from "./About";
@@ -8,7 +8,7 @@ import Status from "./Status";
 import Join from "./Join";
 import Community from "./Community";
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     path: "/",
     Component: Root,
@@ -24,4 +24,4 @@ export const router = createBrowserRouter([
       { path: "*", Component: Home },
     ],
   },
-], { basename: '/ai-ethics/' });
+]);
