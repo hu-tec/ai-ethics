@@ -47,7 +47,7 @@ export default function Services() {
       </section>
 
       {/* Process Flow */}
-      <section className="py-24">
+      <section className="py-24 border-b border-slate-100">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {steps.map((step, idx) => (
@@ -77,6 +77,166 @@ export default function Services() {
                 </div>
               </Motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Detailed Services Sections (from image) */}
+      <section className="py-24 bg-slate-50/50">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="space-y-32">
+            {/* Section 1 */}
+            <div className="flex flex-col md:flex-row gap-12 items-start">
+              <div className="text-8xl font-black text-slate-900/10 leading-none md:w-32">1</div>
+              <div className="flex-1 w-full">
+                <div className="bg-white rounded-[40px] border border-slate-200 p-10 md:p-16 shadow-sm">
+                  <div className="flex flex-col md:flex-row gap-12">
+                    <div className="md:w-1/3">
+                      <h3 className="text-[28px] font-black text-[#8B1D3B] mb-4">AI 윤리 인증</h3>
+                      <p className="text-slate-600 text-base leading-relaxed">
+                        개인과 기관, 프로그램이 신뢰 가능한 AI 윤리 기준을 갖추도록 연결하는 인증 서비스
+                      </p>
+                    </div>
+                    <div className="md:w-2/3 border-l border-slate-100 md:pl-12">
+                      <p className="text-slate-800 font-medium mb-8 leading-relaxed">
+                        인증은 공신력과 신뢰의 구조입니다. 휴텍씨는 교육과 시험을 바탕으로 개인, 기관, 프로그램 단위의 인증 체계를 연결할 수 있도록 설계합니다.
+                      </p>
+                      <ul className="grid grid-cols-2 gap-y-4 gap-x-8">
+                        {['개인 인증', '기관 인증', '프로그램 인증', '교육과정 인증'].map((item) => (
+                          <li key={item} className="flex items-center gap-2 text-slate-600">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#8B1D3B]" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Section 2 */}
+            <div className="flex flex-col md:flex-row gap-12 items-start">
+              <div className="text-8xl font-black text-slate-900/10 leading-none md:w-32">2</div>
+              <div className="flex-1 w-full grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* AI 윤리 교육 */}
+                <div className="space-y-6">
+                  <div className="bg-white rounded-[32px] border border-slate-200 p-8 shadow-sm h-full">
+                    <h3 className="text-2xl font-black text-[#8B1D3B] mb-3">AI 윤리 교육</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed mb-8">
+                      AI 윤리를 이해하고, 설명하고, 적용할 수 있도록 돕는 실천형 교육 서비스
+                    </p>
+                    <div className="bg-blue-50/50 border border-blue-200 rounded-2xl p-6 mb-8">
+                      <p className="text-slate-800 text-sm leading-relaxed">
+                        AI 윤리 교육은 단순 개념 강의가 아니라 산업과 콘텐츠, 교육과 실무에 맞는 사례를 바탕으로 실제 적용 가능한 기준을 익히는 과정입니다.
+                      </p>
+                    </div>
+                    <ul className="space-y-3">
+                      {[
+                        '산업별 교육: 조선, 반도체, 에너지, 의료 등',
+                        '콘텐츠별 교육: 문서, 음성, 영상, 이미지 등',
+                        '대상별 교육: 기업, 기관, 공공, 교사, 강사, 학부모 등'
+                      ].map((item) => (
+                        <li key={item} className="flex items-start gap-2 text-slate-600 text-sm">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#8B1D3B] mt-1.5 shrink-0" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* AI 윤리 시험 */}
+                <div className="space-y-6">
+                  <div className="bg-white rounded-[32px] border border-slate-200 p-8 shadow-sm h-full">
+                    <h3 className="text-2xl font-black text-[#8B1D3B] mb-3">AI 윤리 시험</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed mb-8">
+                      AI 윤리에 대한 이해도와 판단 역량을 평가하는 구조화된 시험 서비스
+                    </p>
+                    <div className="bg-slate-50 border border-slate-100 rounded-2xl p-6 mb-8">
+                      <p className="text-slate-800 text-sm leading-relaxed">
+                        시험은 단순히 윤리 개념을 아는지 묻는 것이 아니라 실제 상황에서 어떤 기준으로 판단하고 설명할 수 있는지를 평가하는 방향으로 설계됩니다.
+                      </p>
+                    </div>
+                    <ul className="space-y-3">
+                      {[
+                        '공통 AI 윤리 시험',
+                        '산업별 특화 시험',
+                        '콘텐츠별 특화 시험',
+                        '교육 연계형 평가 구조'
+                      ].map((item) => (
+                        <li key={item} className="flex items-start gap-2 text-slate-600 text-sm">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#8B1D3B] mt-1.5 shrink-0" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Section 3 */}
+            <div className="flex flex-col md:flex-row gap-12 items-start">
+              <div className="text-8xl font-black text-slate-900/10 leading-none md:w-32">3</div>
+              <div className="flex-1 w-full grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* AI 윤리 컨설팅 */}
+                <div className="space-y-6">
+                  <div className="bg-white rounded-[32px] border border-slate-200 p-8 shadow-sm h-full">
+                    <h3 className="text-2xl font-black text-[#8B1D3B] mb-3">AI 윤리 컨설팅</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed mb-8">
+                      현장에 맞는 AI 윤리 기준과 적용 구조를 설계하는 맞춤형 컨설팅 서비스
+                    </p>
+                    <div className="bg-slate-50 border border-slate-100 rounded-2xl p-6 mb-8">
+                      <p className="text-slate-800 text-sm leading-relaxed">
+                        컨설팅은 단순 자문이 아니라 현재 상황을 진단하고, 필요한 기준을 정리하고, 교육과 운영 구조에 반영하는 과정입니다.
+                      </p>
+                    </div>
+                    <ul className="space-y-3">
+                      {[
+                        '학교/기관 대상 교육 운영 기준 정리',
+                        '기업 내 AI 활용 설명 기준 정리',
+                        '산업별 맞춤형 윤리 가이드 설계',
+                        '콘텐츠 제작 운영 기준 자문'
+                      ].map((item) => (
+                        <li key={item} className="flex items-start gap-2 text-slate-600 text-sm">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#8B1D3B] mt-1.5 shrink-0" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* AI 윤리 보고서 */}
+                <div className="space-y-6">
+                  <div className="bg-white rounded-[32px] border border-slate-200 p-8 shadow-sm h-full">
+                    <h3 className="text-2xl font-black text-[#8B1D3B] mb-3">AI 윤리 보고서</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed mb-8">
+                      시장, 산업, 정책, 사례를 정리해 의사결정에 활용할 수 있도록 돕는 분석형 보고서 서비스
+                    </p>
+                    <div className="bg-slate-50 border border-slate-100 rounded-2xl p-6 mb-8">
+                      <p className="text-slate-800 text-sm leading-relaxed">
+                        휴텍씨는 AI 윤리를 둘러싼 산업별 흐름, 콘텐츠별 이슈, 정책 변화, 교육 수요를 정리해 기관과 기업, 협회, 교육현장에서 활용 가능한 보고서 형태로 제공합니다.
+                      </p>
+                    </div>
+                    <ul className="space-y-3">
+                      {[
+                        '산업별 AI 윤리 시장조사',
+                        '콘텐츠별 AI 윤리 분석',
+                        '정책 브리핑 보고서',
+                        '기관 맞춤형 진단 보고서'
+                      ].map((item) => (
+                        <li key={item} className="flex items-start gap-2 text-slate-600 text-sm">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#8B1D3B] mt-1.5 shrink-0" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
